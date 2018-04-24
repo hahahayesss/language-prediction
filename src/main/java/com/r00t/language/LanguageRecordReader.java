@@ -1,14 +1,12 @@
 package com.r00t.language;
 
+import org.apache.commons.lang3.StringUtils;
 import org.datavec.api.records.reader.impl.LineRecordReader;
-import org.datavec.api.split.FileSplit;
 import org.datavec.api.split.InputSplit;
 import org.datavec.api.writable.DoubleWritable;
 import org.datavec.api.writable.Writable;
 
-import java.io.File;
 import java.io.IOException;
-import java.net.URI;
 import java.nio.charset.Charset;
 import java.nio.file.Files;
 import java.nio.file.Paths;
@@ -16,47 +14,26 @@ import java.util.*;
 import java.util.stream.Collectors;
 
 public class LanguageRecordReader extends LineRecordReader {
-    private Integer maxWordLength;
-    private InputSplit inputSplit;
-    private List<String> filePaths;
-    private List<String> words;
-    private Integer totalRecords;
+    private final String possibleCharSet = PredictionProperties.getPossibleCharacters();
+    private final Integer maxWordLength = PredictionProperties.getMaxCharacterLimit();
+    private List<String> wordList;
     private Iterator<String> iterator;
-
-    public LanguageRecordReader(Integer maxWordLength) {
-        this.maxWordLength = maxWordLength;
-        this.filePaths = new ArrayList<>();
-        this.words = new ArrayList<>();
-    }
 
     @Override
     public void initialize(InputSplit split) throws IOException, InterruptedException {
-        if (split instanceof FileSplit) {
-            this.inputSplit = split;
+        loadData();
 
-            getFilePaths();
-            if (filePaths.size() < 1)
-                throw new InterruptedException("- Error > ");
-
-            for (int x = 0; x < filePaths.size(); x++) {
-                System.out.println("- INFO > " + filePaths.get(x) + " - " + x);
-                words.addAll(convertWords(readFile(filePaths.get(x)), x));
-            }
-            System.out.println("\n");
-
-            // - Shuffle >>>
-            Collections.shuffle(words);
-            Collections.shuffle(words);
-            Collections.shuffle(words);
-            // <<< Shuffle -
-
-            totalRecords = words.size();
-            iterator = words.iterator();
-
-            System.out.println("- INFO > Record Size : " + totalRecords);
-            System.out.println("\n");
+        if (PredictionProperties.getShuffle()) {
+            Collections.shuffle(wordList);
+            Collections.shuffle(wordList);
+            Collections.shuffle(wordList);
         } else
-            throw new InterruptedException("- Error > You have to give FileSplit");
+            System.out.println("- WARNING > Shuffle False > For Learning Algorithms shuffled values better");
+
+        iterator = wordList.iterator();
+
+        System.out.println("- INFO > Total records > " + wordList.size());
+        System.out.println("- INFO > Reader is ready");
     }
 
     @Override
@@ -66,7 +43,7 @@ public class LanguageRecordReader extends LineRecordReader {
                     .map(v -> new DoubleWritable(Double.parseDouble(v)))
                     .collect(Collectors.toList());
         else
-            throw new IllegalStateException("- Error > ");
+            throw new IllegalStateException("- ERROR > There is no item left");
     }
 
     @Override
@@ -74,40 +51,60 @@ public class LanguageRecordReader extends LineRecordReader {
         if (iterator != null)
             return iterator.hasNext();
         else
-            throw new IllegalStateException("- Error > ");
+            throw new IllegalStateException("- ERROR > Iterator not ready yet");
     }
 
     @Override
     public void reset() {
-        iterator = words.iterator();
+        iterator = wordList.iterator();
     }
 
-    private void getFilePaths() {
-        for (URI uri : inputSplit.locations()) {
-            File file = new File(uri);
-            if (file.getName().contains(".csv"))
-                filePaths.add(file.getAbsolutePath());
+    private void loadData() throws IOException {
+        wordList = new ArrayList<>();
+        for (int x = 0; x < PredictionProperties.getFileLocations().size(); x++) {
+            List<String> temp = Files.readAllLines(
+                    Paths.get(PredictionProperties.getFileLocations().get(x)),
+                    Charset.defaultCharset()
+            );
+
+            Collections.shuffle(temp);
+            Collections.shuffle(temp);
+            Collections.shuffle(temp);
+
+            if (!PredictionProperties.getLineSize().equals(0L)) {
+                List<String> tempList = new ArrayList<>();
+                for (int y = 0; y < PredictionProperties.getLineSize(); y++)
+                    tempList.add(temp.get(y));
+                temp = tempList;
+            }
+
+            int finalX = x;
+            wordList.addAll(
+                    temp.stream()
+                            .map(w -> convertWord(w, finalX))
+                            .collect(Collectors.toList())
+            );
         }
-        Collections.sort(filePaths);
     }
 
-    private List<String> readFile(String path) throws IOException {
-        return Files.readAllLines(
-                Paths.get(path),
-                Charset.defaultCharset()
-        ).stream().map(String::toLowerCase).collect(Collectors.toList());
+    private String convertWord(String word, Integer language) {
+        return getBinaryString(word.toLowerCase()) + "," + language;
     }
 
-    private List<String> convertWords(List<String> lines, int language) {
-        return lines.stream()
-                .map(w -> wordToIntArray(w) + language)
-                .collect(Collectors.toList());
-    }
-
-    private String wordToIntArray(String word) {
-        String retString = "";
-        for (int x = 0; x < maxWordLength; x++)
-            retString += x < word.length() ? ((int) word.charAt(x) + ",") : "0,";
-        return retString;
+    private String getBinaryString(String word) {
+        String binaryString = "";
+        for (int j = 0; j < word.length(); j++) {
+            String fs = StringUtils.leftPad(
+                    Integer.toBinaryString(
+                            possibleCharSet.indexOf(
+                                    word.charAt(j)
+                            )
+                    ), 5, "0"
+            );
+            binaryString += fs;
+        }
+        binaryString = org.apache.commons.lang3.StringUtils.rightPad(binaryString, maxWordLength * 5, "0");
+        binaryString = binaryString.replaceAll(".(?!$)", "$0,");
+        return binaryString;
     }
 }

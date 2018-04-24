@@ -5,9 +5,9 @@ import java.io.IOException;
 public class Prediction {
     public static void main(String[] args) throws InterruptedException, IOException {
         writeSignature();
-        //PredictionProperties.init(args[0]);
-
+        PredictionProperties.init(args.length == 0 ? null : args[0]);
         new MLPClassifierLinear().train();
+        writeSignature();
     }
 
     private static void writeSignature() {

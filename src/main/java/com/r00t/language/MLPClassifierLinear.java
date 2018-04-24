@@ -1,6 +1,5 @@
 package com.r00t.language;
 
-import org.datavec.api.split.FileSplit;
 import org.deeplearning4j.api.storage.StatsStorage;
 import org.deeplearning4j.datasets.datavec.RecordReaderDataSetIterator;
 import org.deeplearning4j.eval.Evaluation;
@@ -10,6 +9,7 @@ import org.deeplearning4j.nn.conf.layers.DenseLayer;
 import org.deeplearning4j.nn.conf.layers.OutputLayer;
 import org.deeplearning4j.nn.multilayer.MultiLayerNetwork;
 import org.deeplearning4j.nn.weights.WeightInit;
+import org.deeplearning4j.optimize.listeners.ScoreIterationListener;
 import org.deeplearning4j.ui.api.UIServer;
 import org.deeplearning4j.ui.stats.StatsListener;
 import org.deeplearning4j.ui.storage.InMemoryStatsStorage;
@@ -18,107 +18,113 @@ import org.nd4j.linalg.activations.Activation;
 import org.nd4j.linalg.api.ndarray.INDArray;
 import org.nd4j.linalg.dataset.DataSet;
 import org.nd4j.linalg.dataset.api.iterator.DataSetIterator;
-import org.nd4j.linalg.dataset.api.preprocessor.DataNormalization;
-import org.nd4j.linalg.dataset.api.preprocessor.NormalizerMinMaxScaler;
 import org.nd4j.linalg.learning.config.Nesterovs;
 import org.nd4j.linalg.lossfunctions.LossFunctions;
 
-import java.io.File;
 import java.io.IOException;
 
 public class MLPClassifierLinear {
     public void train() throws InterruptedException, IOException {
-        int seed = 123456;
-        double learningRate = 0.005;
-        int batchSize = 128;
-        int nEpochs = 100;
-        int numInputs = 20;
-        int numOutputs = 5;
-        int numHiddenNodes = 45;
+        LanguageRecordReader recordReader = new LanguageRecordReader();
 
-        LanguageRecordReader recordReader = new LanguageRecordReader(numInputs);
-        recordReader.initialize(new FileSplit(new File("C:\\Users\\hahah\\Desktop\\ML_IN_OUT\\FULL_SIZE")));
+        Long startTime = System.currentTimeMillis();
+        recordReader.initialize(null);
+        Long endTime = System.currentTimeMillis();
 
-        DataSetIterator dataSetIterator = new RecordReaderDataSetIterator(recordReader, batchSize, numInputs, numOutputs);
+        System.out.println("\n- INFO > RecordReader has initialized");
+        System.out.println("- INFO > It took " + (endTime - startTime) + "ms\n");
 
-
-        // - Normalization >>>
-        DataNormalization normalization = new NormalizerMinMaxScaler(0, 1);
-        normalization.fit(dataSetIterator);
-        dataSetIterator.setPreProcessor(normalization);
-        // <<< Normalization -
-
+        DataSetIterator dataSetIterator = new RecordReaderDataSetIterator(
+                recordReader,
+                PredictionProperties.getBatchSize(),
+                PredictionProperties.getNumInputs(),
+                PredictionProperties.getNumOutputs()
+        );
 
         // - Configuration >>>
         MultiLayerConfiguration configuration = new NeuralNetConfiguration.Builder()
-                .seed(seed)
+                .seed(PredictionProperties.getSeed())
 //                .optimizationAlgo(OptimizationAlgorithm.STOCHASTIC_GRADIENT_DESCENT)
                 .biasInit(1)
                 .l2(1e-4)
-                .updater(new Nesterovs(learningRate, 0.9))
+                .updater(new Nesterovs(PredictionProperties.getLearningRate(), 0.9))
                 .list()
                 .layer(0, new DenseLayer.Builder()
-                        .nIn(numInputs)
-                        .nOut(numHiddenNodes)
+                        .nIn(PredictionProperties.getNumInputs())
+                        .nOut(PredictionProperties.getNumHiddenNodes())
                         .weightInit(WeightInit.XAVIER)
                         .activation(Activation.RELU)
                         .build())
                 .layer(1, new DenseLayer.Builder()
-                        .nIn(numHiddenNodes)
-                        .nOut(numHiddenNodes)
+                        .nIn(PredictionProperties.getNumHiddenNodes())
+                        .nOut(PredictionProperties.getNumHiddenNodes())
                         .weightInit(WeightInit.XAVIER)
                         .activation(Activation.RELU)
                         .build())
                 .layer(2, new OutputLayer.Builder(LossFunctions.LossFunction.MSE)
                         .weightInit(WeightInit.XAVIER)
                         .activation(Activation.SOFTMAX)
-                        .nIn(numHiddenNodes)
-                        .nOut(numOutputs)
+                        .nIn(PredictionProperties.getNumHiddenNodes())
+                        .nOut(PredictionProperties.getNumOutputs())
                         .build())
                 .pretrain(false)
                 .backprop(true)
                 .build();
         // <<< Configuration -
 
-
         // - TRAIN >>>
+        Long startTrainTime = System.currentTimeMillis();
         MultiLayerNetwork model = new MultiLayerNetwork(configuration);
         model.init();
 
         // - - Server >>>
-//        model.setListeners(new ScoreIterationListener(10000));
-        UIServer uiServer = UIServer.getInstance();
-        StatsStorage statsStorage = new InMemoryStatsStorage();
-        uiServer.attach(statsStorage);
-        model.setListeners(new StatsListener(statsStorage));
+        if (PredictionProperties.getUIServer()) {
+            UIServer uiServer = UIServer.getInstance();
+            StatsStorage statsStorage = new InMemoryStatsStorage();
+            uiServer.attach(statsStorage);
+            model.setListeners(new StatsListener(statsStorage));
+        } else
+            model.setListeners(new ScoreIterationListener(10000));
         // <<< Server - -
 
-        for (int x = 0; x < nEpochs; x++) {
+        for (int x = 0; x < PredictionProperties.getNEpochs(); x++) {
             while (dataSetIterator.hasNext())
                 model.fit(dataSetIterator.next());
             dataSetIterator.reset();
         }
+        Long endTrainTime = System.currentTimeMillis();
         // <<< TRAIN -
 
+        System.out.println("- INFO > Train is finished");
+        System.out.println("- INFO > It took " + (endTrainTime - startTrainTime) + "ms\n");
 
         // - Save >>>
-        ModelSerializer.writeModel(model, "C:\\Users\\hahah\\Desktop\\ML_IN_OUT\\FULL_SIZE\\model.zip", true);
+        ModelSerializer.writeModel(model, PredictionProperties.getOutputFileLocation(), true);
         // <<< Save -
 
-
         // - Evaluation >>>
-        DataSetIterator dataSetIteratorTest = new RecordReaderDataSetIterator(recordReader, batchSize, numInputs, numOutputs);
-        normalization.fit(dataSetIteratorTest);
-        dataSetIteratorTest.setPreProcessor(normalization);
+        if (PredictionProperties.getEvaluation()) {
+            DataSetIterator dataSetIteratorTest = new RecordReaderDataSetIterator(
+                    recordReader,
+                    PredictionProperties.getBatchSize(),
+                    PredictionProperties.getNumInputs(),
+                    PredictionProperties.getNumOutputs()
+            );
 
-        Evaluation evaluation = new Evaluation(numOutputs);
-        while (dataSetIteratorTest.hasNext()) {
-            DataSet dataSet = dataSetIteratorTest.next();
-            INDArray output = model.output(dataSet.getFeatureMatrix());
-            evaluation.eval(dataSet.getLabels(), output);
-        }
+            Long startEvaluatingTime = System.currentTimeMillis();
+            Evaluation evaluation = new Evaluation(PredictionProperties.getNumOutputs());
+            while (dataSetIteratorTest.hasNext()) {
+                DataSet dataSet = dataSetIteratorTest.next();
+                INDArray output = model.output(dataSet.getFeatureMatrix());
+                evaluation.eval(dataSet.getLabels(), output);
+            }
+            Long endEvaluatingTime = System.currentTimeMillis();
 
-        System.out.println(evaluation.stats());
+            System.out.println(evaluation.stats());
+            System.out.println("\n- INFO > Evaluation completed");
+            System.out.println("- INFO > It took " + (endEvaluatingTime - startEvaluatingTime) + "ms");
+        } else
+            throw new InterruptedException("- WARNING > Evaluation False > For Learning Algorithms Evaluation is important");
         // <<< Evaluation -
     }
 }

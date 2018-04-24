@@ -1,0 +1,30 @@
+<?xml version="1.0" encoding="utf-8"?>
+<!DOCTYPE properties SYSTEM "http://java.sun.com/dtd/properties.dtd">
+<properties>
+    <!--Core Settings!-->
+    <entry key="seed">123456</entry>
+    <entry key="learningRate">0.005</entry>
+    <entry key="batchSize">128</entry>
+    <entry key="nEpochs">100</entry>
+    <entry key="evaluation">true</entry>
+    <entry key="uiServer">true</entry>
+    <entry key="outputFileLocation">/Users/hahahayesss/Desktop/languages/prediction-1.zip</entry>
+
+    <!--Parser Settings>!-->
+    <!-- Files has to be "*.cvs" format !-->
+    <entry key="fileLocation0">/Users/hahahayesss/Desktop/languages/D.csv</entry>
+    <entry key="fileLocation1">/Users/hahahayesss/Desktop/languages/E.csv</entry>
+    <entry key="fileLocation2">/Users/hahahayesss/Desktop/languages/I.csv</entry>
+    <entry key="fileLocation3">/Users/hahahayesss/Desktop/languages/S.csv</entry>
+    <entry key="fileLocation4">/Users/hahahayesss/Desktop/languages/T.csv</entry>
+
+    <entry key="lineSize">10000</entry>         <!-- null for max !-->
+    <entry key="maxCharacterLimit">30</entry>
+    <entry key="possibleCharacters">qwertyuıopğüasdfghjklşizxcvbnmöçóíáñéúß'-</entry>
+
+    <!-- Def settings !-->
+    <entry key="shuffle">null</entry>           <!-- Def : True !-->
+    <entry key="numInputs">null</entry>         <!-- Def : possibleCharacters !-->
+    <entry key="numOutputs">null</entry>        <!-- Def : fileLocation size !-->
+    <entry key="numHiddenNodes">null</entry>    <!-- Def : (2 * maxCharacterLimit) + numOutPuts !-->
+</properties>
