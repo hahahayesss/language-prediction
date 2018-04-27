@@ -9,6 +9,7 @@ import org.datavec.api.writable.Writable;
 import java.io.IOException;
 import java.nio.charset.Charset;
 import java.nio.file.Files;
+import java.nio.file.Path;
 import java.nio.file.Paths;
 import java.util.*;
 import java.util.stream.Collectors;
@@ -18,6 +19,7 @@ public class LanguageRecordReader extends LineRecordReader {
     private final Integer maxWordLength = PredictionProperties.getMaxCharacterLimit();
     private List<String> wordList;
     private Iterator<String> iterator;
+    private Map<String, Integer> labels;
 
     @Override
     public void initialize(InputSplit split) throws IOException, InterruptedException {
@@ -61,9 +63,11 @@ public class LanguageRecordReader extends LineRecordReader {
 
     private void loadData() throws IOException {
         wordList = new ArrayList<>();
+        labels = new HashMap<>();
         for (int x = 0; x < PredictionProperties.getFileLocations().size(); x++) {
+            Path path = Paths.get(PredictionProperties.getFileLocations().get(x));
             List<String> temp = Files.readAllLines(
-                    Paths.get(PredictionProperties.getFileLocations().get(x)),
+                    path,
                     Charset.defaultCharset()
             );
 
@@ -83,6 +87,10 @@ public class LanguageRecordReader extends LineRecordReader {
                     temp.stream()
                             .map(w -> convertWord(w, finalX))
                             .collect(Collectors.toList())
+            );
+            labels.put(
+                    path.getFileName().toString().substring(0, 1),
+                    x
             );
         }
     }

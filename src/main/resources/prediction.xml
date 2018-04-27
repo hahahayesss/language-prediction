@@ -8,17 +8,17 @@
     <entry key="nEpochs">100</entry>
     <entry key="evaluation">true</entry>
     <entry key="uiServer">true</entry>
-    <entry key="outputFileLocation">/Users/hahahayesss/Desktop/languages/prediction-1.zip</entry>
+    <entry key="outputFileLocation">/Users/hahahayesss/Desktop/languages/prediction-3.zip</entry>
 
     <!--Parser Settings>!-->
     <!-- Files has to be "*.cvs" format !-->
-    <entry key="fileLocation0">/Users/hahahayesss/Desktop/languages/D.csv</entry>
-    <entry key="fileLocation1">/Users/hahahayesss/Desktop/languages/E.csv</entry>
-    <entry key="fileLocation2">/Users/hahahayesss/Desktop/languages/I.csv</entry>
-    <entry key="fileLocation3">/Users/hahahayesss/Desktop/languages/S.csv</entry>
-    <entry key="fileLocation4">/Users/hahahayesss/Desktop/languages/T.csv</entry>
+    <entry key="fileLocation0">/Users/hahahayesss/Desktop/languages/D(1.0).csv</entry>
+    <entry key="fileLocation1">/Users/hahahayesss/Desktop/languages/E(1.0).csv</entry>
+    <entry key="fileLocation2">/Users/hahahayesss/Desktop/languages/I(1.0).csv</entry>
+    <entry key="fileLocation3">/Users/hahahayesss/Desktop/languages/S(1.0).csv</entry>
+    <entry key="fileLocation4">/Users/hahahayesss/Desktop/languages/T(1.0).csv</entry>
 
-    <entry key="lineSize">10000</entry>         <!-- null for max !-->
+    <entry key="lineSize">30000</entry>         <!-- null for max !-->
     <entry key="maxCharacterLimit">30</entry>
     <entry key="possibleCharacters">qwertyuıopğüasdfghjklşizxcvbnmöçóíáñéúß'-</entry>
 
