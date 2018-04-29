@@ -37,9 +37,6 @@ public class PredictionProperties {
             throw new InterruptedException("- ERROR > Properties : Language File Locations");
         if (getMaxCharacterLimit() == null || getMaxCharacterLimit().equals(0))
             throw new InterruptedException("- ERROR > Properties : Max Character Limit");
-        if (getPossibleCharacters() == null || getPossibleCharacters().equals("null"))
-            throw new InterruptedException("- ERROR > Properties : Possible Characters");
-
     }
 
     public static Integer getSeed() {
@@ -90,14 +87,9 @@ public class PredictionProperties {
         return Integer.parseInt(properties.getProperty("maxCharacterLimit"));
     }
 
-    public static String getPossibleCharacters() {
-        return properties.getProperty("possibleCharacters");
-    }
-
     public static Boolean getShuffle() {
         return properties.getProperty("shuffle").equals("null") ?
-                true :
-                Boolean.parseBoolean(properties.getProperty("shuffle"));
+                true : Boolean.parseBoolean(properties.getProperty("shuffle"));
     }
 
     public static Integer getNumInputs() {

@@ -9,17 +9,14 @@ import org.datavec.api.writable.Writable;
 import java.io.IOException;
 import java.nio.charset.Charset;
 import java.nio.file.Files;
-import java.nio.file.Path;
 import java.nio.file.Paths;
 import java.util.*;
 import java.util.stream.Collectors;
 
 public class LanguageRecordReader extends LineRecordReader {
-    private final String possibleCharSet = PredictionProperties.getPossibleCharacters();
     private final Integer maxWordLength = PredictionProperties.getMaxCharacterLimit();
     private List<String> wordList;
     private Iterator<String> iterator;
-    private Map<String, Integer> labels;
 
     @Override
     public void initialize(InputSplit split) throws IOException, InterruptedException {
@@ -34,7 +31,7 @@ public class LanguageRecordReader extends LineRecordReader {
 
         iterator = wordList.iterator();
 
-        System.out.println("- INFO > Total records > " + wordList.size());
+        System.out.println("- INFO > Total records " + wordList.size());
         System.out.println("- INFO > Reader is ready");
     }
 
@@ -63,19 +60,19 @@ public class LanguageRecordReader extends LineRecordReader {
 
     private void loadData() throws IOException {
         wordList = new ArrayList<>();
-        labels = new HashMap<>();
         for (int x = 0; x < PredictionProperties.getFileLocations().size(); x++) {
-            Path path = Paths.get(PredictionProperties.getFileLocations().get(x));
             List<String> temp = Files.readAllLines(
-                    path,
+                    Paths.get(PredictionProperties.getFileLocations().get(x)),
                     Charset.defaultCharset()
-            );
+            ).stream()
+                    .map(String::toLowerCase)
+                    .collect(Collectors.toList());
 
             Collections.shuffle(temp);
             Collections.shuffle(temp);
             Collections.shuffle(temp);
 
-            if (!PredictionProperties.getLineSize().equals(0L)) {
+            if (!PredictionProperties.getLineSize().equals(0L) && temp.size() > PredictionProperties.getLineSize()) {
                 List<String> tempList = new ArrayList<>();
                 for (int y = 0; y < PredictionProperties.getLineSize(); y++)
                     tempList.add(temp.get(y));
@@ -88,10 +85,6 @@ public class LanguageRecordReader extends LineRecordReader {
                             .map(w -> convertWord(w, finalX))
                             .collect(Collectors.toList())
             );
-            labels.put(
-                    path.getFileName().toString().substring(0, 1),
-                    x
-            );
         }
     }
 
@@ -101,17 +94,15 @@ public class LanguageRecordReader extends LineRecordReader {
 
     private String getBinaryString(String word) {
         String binaryString = "";
-        for (int j = 0; j < word.length(); j++) {
+        for (int x = 0; x < word.length(); x++) {
             String fs = StringUtils.leftPad(
                     Integer.toBinaryString(
-                            possibleCharSet.indexOf(
-                                    word.charAt(j)
-                            )
+                            (int) word.charAt(x)
                     ), 5, "0"
             );
             binaryString += fs;
         }
-        binaryString = org.apache.commons.lang3.StringUtils.rightPad(binaryString, maxWordLength * 5, "0");
+        binaryString = StringUtils.rightPad(binaryString, maxWordLength * 5, "0");
         binaryString = binaryString.replaceAll(".(?!$)", "$0,");
         return binaryString;
     }

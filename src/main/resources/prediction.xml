@@ -4,27 +4,26 @@
     <!--Core Settings!-->
     <entry key="seed">123456</entry>
     <entry key="learningRate">0.005</entry>
-    <entry key="batchSize">128</entry>
-    <entry key="nEpochs">100</entry>
+    <entry key="batchSize">100</entry>
+    <entry key="nEpochs">667</entry>
     <entry key="evaluation">true</entry>
-    <entry key="uiServer">true</entry>
-    <entry key="outputFileLocation">/Users/hahahayesss/Desktop/languages/prediction-3.zip</entry>
+    <entry key="uiServer">false</entry>
+    <entry key="outputFileLocation">C:\Users\hahah\Desktop\ML_IN_OUT\full\ex2.zip</entry>
 
     <!--Parser Settings>!-->
     <!-- Files has to be "*.cvs" format !-->
-    <entry key="fileLocation0">/Users/hahahayesss/Desktop/languages/D(1.0).csv</entry>
-    <entry key="fileLocation1">/Users/hahahayesss/Desktop/languages/E(1.0).csv</entry>
-    <entry key="fileLocation2">/Users/hahahayesss/Desktop/languages/I(1.0).csv</entry>
-    <entry key="fileLocation3">/Users/hahahayesss/Desktop/languages/S(1.0).csv</entry>
-    <entry key="fileLocation4">/Users/hahahayesss/Desktop/languages/T(1.0).csv</entry>
+    <entry key="fileLocation0">C:\Users\hahah\Desktop\ML_IN_OUT\full\D.csv</entry>
+    <entry key="fileLocation1">C:\Users\hahah\Desktop\ML_IN_OUT\full\E.csv</entry>
+    <entry key="fileLocation2">C:\Users\hahah\Desktop\ML_IN_OUT\full\I.csv</entry>
+    <entry key="fileLocation3">C:\Users\hahah\Desktop\ML_IN_OUT\full\S.csv</entry>
+    <entry key="fileLocation4">C:\Users\hahah\Desktop\ML_IN_OUT\full\T.csv</entry>
 
-    <entry key="lineSize">30000</entry>         <!-- null for max !-->
+    <entry key="lineSize">null</entry>              <!-- null for max !-->
     <entry key="maxCharacterLimit">30</entry>
-    <entry key="possibleCharacters">qwertyuıopğüasdfghjklşizxcvbnmöçóíáñéúß'-</entry>
 
     <!-- Def settings !-->
-    <entry key="shuffle">null</entry>           <!-- Def : True !-->
-    <entry key="numInputs">null</entry>         <!-- Def : possibleCharacters !-->
-    <entry key="numOutputs">null</entry>        <!-- Def : fileLocation size !-->
-    <entry key="numHiddenNodes">null</entry>    <!-- Def : (2 * maxCharacterLimit) + numOutPuts !-->
+    <entry key="shuffle">null</entry>               <!-- Def : True !-->
+    <entry key="numInputs">null</entry>             <!-- Def : possibleCharacters !-->
+    <entry key="numOutputs">null</entry>            <!-- Def : fileLocation size !-->
+    <entry key="numHiddenNodes">null</entry>        <!-- Def : (2 * maxCharacterLimit) + numOutPuts !-->
 </properties>
