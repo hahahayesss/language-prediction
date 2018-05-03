@@ -8,17 +8,29 @@
     <entry key="nEpochs">100</entry>
     <entry key="evaluation">true</entry>
     <entry key="uiServer">false</entry>
-    <entry key="outputFileLocation">/Users/hahahayesss/Desktop/ML_IN_OUT/full/ex31.zip</entry>
+    <entry key="outputFileLocation">
+        /Users/hahahayesss/Desktop/java/language-prediction-2-train/src/main/resources/ML_IN_OUT/full/ex_ex5.zip
+    </entry>
 
     <!--Parser Settings>!-->
     <!-- Files has to be "*.cvs" format !-->
-    <entry key="fileLocation0">/Users/hahahayesss/Desktop/ML_IN_OUT/full/D.csv</entry>
-    <entry key="fileLocation1">/Users/hahahayesss/Desktop/ML_IN_OUT/full/E.csv</entry>
-    <entry key="fileLocation2">/Users/hahahayesss/Desktop/ML_IN_OUT/full/I.csv</entry>
-    <entry key="fileLocation3">/Users/hahahayesss/Desktop/ML_IN_OUT/full/S.csv</entry>
-    <entry key="fileLocation4">/Users/hahahayesss/Desktop/ML_IN_OUT/full/T.csv</entry>
+    <entry key="fileLocation0">
+        /Users/hahahayesss/Desktop/java/language-prediction-2-train/src/main/resources/ML_IN_OUT/full/D.csv
+    </entry>
+    <entry key="fileLocation1">
+        /Users/hahahayesss/Desktop/java/language-prediction-2-train/src/main/resources/ML_IN_OUT/full/E.csv
+    </entry>
+    <entry key="fileLocation2">
+        /Users/hahahayesss/Desktop/java/language-prediction-2-train/src/main/resources/ML_IN_OUT/full/I.csv
+    </entry>
+    <entry key="fileLocation3">
+        /Users/hahahayesss/Desktop/java/language-prediction-2-train/src/main/resources/ML_IN_OUT/full/S.csv
+    </entry>
+    <entry key="fileLocation4">
+        /Users/hahahayesss/Desktop/java/language-prediction-2-train/src/main/resources/ML_IN_OUT/full/T.csv
+    </entry>
 
-    <entry key="lineSize">52500</entry>              <!-- null for max !-->
+    <entry key="lineSize">7500</entry>              <!-- null for max !-->
     <entry key="maxCharacterLimit">30</entry>
 
     <!-- Def settings !-->

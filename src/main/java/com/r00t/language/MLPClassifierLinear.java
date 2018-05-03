@@ -22,6 +22,7 @@ import org.nd4j.linalg.learning.config.Nesterovs;
 import org.nd4j.linalg.lossfunctions.LossFunctions;
 
 import java.io.IOException;
+import java.util.concurrent.TimeUnit;
 
 public class MLPClassifierLinear {
     public void train() throws InterruptedException, IOException {
@@ -32,7 +33,12 @@ public class MLPClassifierLinear {
         Long endTime = System.currentTimeMillis();
 
         System.out.println("\n- INFO > RecordReader has initialized");
-        System.out.println("- INFO > It took " + (endTime - startTime) + "ms\n");
+        System.out.println(
+                "- INFO > It took " + (endTime - startTime) + "ms " +
+                        "(" + TimeUnit.MILLISECONDS.toMinutes(endTime - startTime) + "m " +
+                        (TimeUnit.MILLISECONDS.toSeconds(endTime - startTime) -
+                                TimeUnit.MINUTES.toSeconds(TimeUnit.MILLISECONDS.toMinutes(endTime - startTime))) + "s)\n"
+        );
 
         DataSetIterator dataSetIterator = new RecordReaderDataSetIterator(
                 recordReader,
@@ -61,7 +67,7 @@ public class MLPClassifierLinear {
                         .weightInit(WeightInit.XAVIER)
                         .activation(Activation.RELU)
                         .build())
-                .layer(2, new OutputLayer.Builder(LossFunctions.LossFunction.MSE)
+                .layer(2, new OutputLayer.Builder(LossFunctions.LossFunction.NEGATIVELOGLIKELIHOOD)
                         .weightInit(WeightInit.XAVIER)
                         .activation(Activation.SOFTMAX)
                         .nIn(PredictionProperties.getNumHiddenNodes())
@@ -95,8 +101,13 @@ public class MLPClassifierLinear {
         Long endTrainTime = System.currentTimeMillis();
         // <<< TRAIN -
 
-        System.out.println("- INFO > Train is finished");
-        System.out.println("- INFO > It took " + (endTrainTime - startTrainTime) + "ms\n");
+        System.out.println("\n- INFO > Train is finished");
+        System.out.println(
+                "- INFO > It took " + (endTrainTime - startTrainTime) + "ms " +
+                        "(" + TimeUnit.MILLISECONDS.toMinutes(endTime - startTime) + "m " +
+                        (TimeUnit.MILLISECONDS.toSeconds(endTrainTime - startTrainTime) -
+                                TimeUnit.MINUTES.toSeconds(TimeUnit.MILLISECONDS.toMinutes(endTrainTime - startTrainTime))) + "s)\n"
+        );
 
         // - Save >>>
         ModelSerializer.writeModel(model, PredictionProperties.getOutputFileLocation(), true);
@@ -124,7 +135,7 @@ public class MLPClassifierLinear {
             System.out.println("\n- INFO > Evaluation completed");
             System.out.println("- INFO > It took " + (endEvaluatingTime - startEvaluatingTime) + "ms");
         } else
-            throw new InterruptedException("- WARNING > Evaluation False > For Learning Algorithms Evaluation is important");
+            System.out.println("- WARNING > Evaluation False > For Learning Algorithms Evaluation is important");
         // <<< Evaluation -
     }
 }
