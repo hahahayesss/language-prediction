@@ -5,32 +5,21 @@
     <entry key="seed">123456</entry>
     <entry key="learningRate">0.005</entry>
     <entry key="batchSize">100</entry>
-    <entry key="nEpochs">100</entry>
+    <entry key="nEpochs">500</entry>
     <entry key="evaluation">true</entry>
     <entry key="uiServer">false</entry>
-    <entry key="outputFileLocation">
-        /Users/hahahayesss/Desktop/java/language-prediction-2-train/src/main/resources/ML_IN_OUT/full/ex_ex5.zip
+    <entry key="outputFileLocation">C:\Users\hahah\Desktop\ML\MlLanguageMk2\src\main\resources\ML_IN_OUT\full\ex45.zip
     </entry>
 
     <!--Parser Settings>!-->
     <!-- Files has to be "*.cvs" format !-->
-    <entry key="fileLocation0">
-        /Users/hahahayesss/Desktop/java/language-prediction-2-train/src/main/resources/ML_IN_OUT/full/D.csv
-    </entry>
-    <entry key="fileLocation1">
-        /Users/hahahayesss/Desktop/java/language-prediction-2-train/src/main/resources/ML_IN_OUT/full/E.csv
-    </entry>
-    <entry key="fileLocation2">
-        /Users/hahahayesss/Desktop/java/language-prediction-2-train/src/main/resources/ML_IN_OUT/full/I.csv
-    </entry>
-    <entry key="fileLocation3">
-        /Users/hahahayesss/Desktop/java/language-prediction-2-train/src/main/resources/ML_IN_OUT/full/S.csv
-    </entry>
-    <entry key="fileLocation4">
-        /Users/hahahayesss/Desktop/java/language-prediction-2-train/src/main/resources/ML_IN_OUT/full/T.csv
-    </entry>
+    <entry key="fileLocation0">C:\Users\hahah\Desktop\ML\MlLanguageMk2\src\main\resources\ML_IN_OUT\full\D.csv</entry>
+    <entry key="fileLocation1">C:\Users\hahah\Desktop\ML\MlLanguageMk2\src\main\resources\ML_IN_OUT\full\E.csv</entry>
+    <entry key="fileLocation2">C:\Users\hahah\Desktop\ML\MlLanguageMk2\src\main\resources\ML_IN_OUT\full\I.csv</entry>
+    <entry key="fileLocation3">C:\Users\hahah\Desktop\ML\MlLanguageMk2\src\main\resources\ML_IN_OUT\full\S.csv</entry>
+    <entry key="fileLocation4">C:\Users\hahah\Desktop\ML\MlLanguageMk2\src\main\resources\ML_IN_OUT\full\T.csv</entry>
 
-    <entry key="lineSize">7500</entry>              <!-- null for max !-->
+    <entry key="lineSize">67500</entry>              <!-- null for max !-->
     <entry key="maxCharacterLimit">30</entry>
 
     <!-- Def settings !-->

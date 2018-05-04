@@ -32,6 +32,10 @@ public class LanguageRecordReader extends LineRecordReader {
         iterator = wordList.iterator();
 
         System.out.println("- INFO > Total records " + wordList.size());
+        System.out.println(
+                "- INFO > Iteration size " +
+                        ((wordList.size() / PredictionProperties.getBatchSize()) * PredictionProperties.getNEpochs())
+        );
         System.out.println("- INFO > Reader is ready");
     }
 

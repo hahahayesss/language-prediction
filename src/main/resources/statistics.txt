@@ -159,35 +159,35 @@ F1 Score:        0,7989 |  F1 Score:        0,8008 |  F1 Score:        0, |  F1 
 | Recall:          0.7220 | Recall:          0.7533 | Recall:          0.7658 | Recall:          0.7665 | Recall:          0.7767 |
 | F1 Score:        0.7246 | F1 Score:        0.7552 | F1 Score:        0.7659 | F1 Score:        0.7661 | F1 Score:        0.7758 |
 -----------------------------------------------------------------------------------------------------------------------------------
-| Test 31 (ex31) -> %70   | Test 32 (ex32) -> %70   | Test 33 (ex33) -> %70   | Test 34 (ex34) -> %70   | Test 35 (ex35) -> %70   | <<<
+| Test 31 (ex31) -> %70   | Test 32 (ex32) -> %70   | Test 33 (ex33) -> %70   | Test 34 (ex34) -> %70   | Test 35 (ex35) -> %70   |
 |  N Epochs = 100         |  N Epochs = 200         |  N Epochs = 300         |  N Epochs = 400         |  N Epochs = 500         |
 | Line size = 52500       | Line size = 52500       | Line size = 52500       | Line size = 52500       | Line size = 52500       |
 |                         |                         |                         |                         |                         |
 | > > Scores > > >        | > > Scores > > >        | > > Scores > > >        | > > Scores > > >        | > > Scores > > >        |
-| Accuracy:        0.7296 | Accuracy:        0.7562 | Accuracy:        0.7694 | Accuracy:        0. | Accuracy:        0. |
-| Precision:       0.7348 | Precision:       0.7658 | Precision:       0.7784 | Precision:       0. | Precision:       0. |
-| Recall:          0.7297 | Recall:          0.7560 | Recall:          0.7693 | Recall:          0. | Recall:          0. |
-| F1 Score:        0.7312 | F1 Score:        0.7575 | F1 Score:        0.7708 | F1 Score:        0. | F1 Score:        0. |
+| Accuracy:        0.7296 | Accuracy:        0.7562 | Accuracy:        0.7694 | Accuracy:        0.7751 | Accuracy:        0.7792 |
+| Precision:       0.7348 | Precision:       0.7658 | Precision:       0.7784 | Precision:       0.7834 | Precision:       0.7881 |
+| Recall:          0.7297 | Recall:          0.7560 | Recall:          0.7693 | Recall:          0.7750 | Recall:          0.7791 |
+| F1 Score:        0.7312 | F1 Score:        0.7575 | F1 Score:        0.7708 | F1 Score:        0.7764 | F1 Score:        0.7804 |
 -----------------------------------------------------------------------------------------------------------------------------------
 | Test 36 (ex36) -> %80   | Test 37 (ex37) -> %80   | Test 38 (ex38) -> %80   | Test 39 (ex39) -> %80   | Test 40 (ex40) -> %80   |
 |  N Epochs = 100         |  N Epochs = 200         |  N Epochs = 300         |  N Epochs = 400         |  N Epochs = 500         |
 | Line size = 60000       | Line size = 60000       | Line size = 60000       | Line size = 60000       | Line size = 60000       |
 |                         |                         |                         |                         |                         |
 | > > Scores > > >        | > > Scores > > >        | > > Scores > > >        | > > Scores > > >        | > > Scores > > >        |
-| Accuracy:        0.7347 | Accuracy:        0.7621 | Accuracy:        0.7702 | Accuracy:        0. | Accuracy:        0. |
-| Precision:       0.7378 | Precision:       0.7668 | Precision:       0.7719 | Precision:       0. | Precision:       0. |
-| Recall:          0.7347 | Recall:          0.7621 | Recall:          0.7704 | Recall:          0. | Recall:          0. |
-| F1 Score:        0.7352 | F1 Score:        0.7631 | F1 Score:        0.7704 | F1 Score:        0. | F1 Score:        0. |
+| Accuracy:        0.7347 | Accuracy:        0.7621 | Accuracy:        0.7702 | Accuracy:        0.7722 | Accuracy:        0.7823 |
+| Precision:       0.7378 | Precision:       0.7668 | Precision:       0.7719 | Precision:       0.7822 | Precision:       0.7880 |
+| Recall:          0.7347 | Recall:          0.7621 | Recall:          0.7704 | Recall:          0.7721 | Recall:          0.7823 |
+| F1 Score:        0.7352 | F1 Score:        0.7631 | F1 Score:        0.7704 | F1 Score:        0.7732 | F1 Score:        0.7835 |
 -----------------------------------------------------------------------------------------------------------------------------------
 | Test 41 (ex41) -> %90   | Test 42 (ex42) -> %90   | Test 43 (ex43) -> %90   | Test 44 (ex44) -> %90   | Test 45 (ex45) -> %90   |
 |  N Epochs = 100         |  N Epochs = 200         |  N Epochs = 300         |  N Epochs = 400         |  N Epochs = 500         |
 | Line size = 67500       | Line size = 67500       | Line size = 67500       | Line size = 67500       | Line size = 67500       |
 |                         |                         |                         |                         |                         |
 | > > Scores > > >        | > > Scores > > >        | > > Scores > > >        | > > Scores > > >        | > > Scores > > >        |
-| Accuracy:        0.7362 | Accuracy:        0.7631 | Accuracy:        0.7751 | Accuracy:        0. | Accuracy:        0. |
-| Precision:       0.7559 | Precision:       0.7690 | Precision:       0.7785 | Precision:       0. | Precision:       0. |
-| Recall:          0.7359 | Recall:          0.7632 | Recall:          0.7751 | Recall:          0. | Recall:          0. |
-| F1 Score:        0.7399 | F1 Score:        0.7637 | F1 Score:        0.7761 | F1 Score:        0. | F1 Score:        0. |
+| Accuracy:        0.7362 | Accuracy:        0.7631 | Accuracy:        0.7751 | Accuracy:        0.7796 | Accuracy:        0. |
+| Precision:       0.7559 | Precision:       0.7690 | Precision:       0.7785 | Precision:       0.7821 | Precision:       0. |
+| Recall:          0.7359 | Recall:          0.7632 | Recall:          0.7751 | Recall:          0.7796 | Recall:          0. |
+| F1 Score:        0.7399 | F1 Score:        0.7637 | F1 Score:        0.7761 | F1 Score:        0.7804 | F1 Score:        0. |
 -----------------------------------------------------------------------------------------------------------------------------------
 | Test 46 (ex46) -> %100  | Test 47 (ex47) -> %100  | Test 48 (ex48) -> %100  | Test 49 (ex49) -> %100  | Test 50 (ex50) -> %100  |
 |  N Epochs = 100         |  N Epochs = 200         |  N Epochs = 300         |  N Epochs = 400         |  N Epochs = 500         |
