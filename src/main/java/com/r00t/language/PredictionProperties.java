@@ -56,11 +56,11 @@ public class PredictionProperties {
     }
 
     public static Boolean getEvaluation() {
-        return Boolean.parseBoolean(properties.getProperty("evaluation"));
+        return properties.getProperty("evaluation").equals("null") || properties.getProperty("evaluation").equals("true");
     }
 
     public static Boolean getUIServer() {
-        return Boolean.parseBoolean(properties.getProperty("uiServer"));
+        return properties.getProperty("uiServer").equals("null") || properties.getProperty("uiServer").equals("true");
     }
 
     public static String getOutputFileLocation() {
@@ -88,8 +88,7 @@ public class PredictionProperties {
     }
 
     public static Boolean getShuffle() {
-        return properties.getProperty("shuffle").equals("null") ?
-                true : Boolean.parseBoolean(properties.getProperty("shuffle"));
+        return properties.getProperty("shuffle").equals("null") || properties.getProperty("shuffle").equals("true");
     }
 
     public static Integer getNumInputs() {

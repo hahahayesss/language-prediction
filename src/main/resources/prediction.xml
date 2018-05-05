@@ -4,12 +4,11 @@
     <!--Core Settings!-->
     <entry key="seed">123456</entry>
     <entry key="learningRate">0.005</entry>
-    <entry key="batchSize">100</entry>
-    <entry key="nEpochs">500</entry>
+    <entry key="batchSize">1500</entry>
+    <entry key="nEpochs">3000</entry>
     <entry key="evaluation">true</entry>
-    <entry key="uiServer">false</entry>
-    <entry key="outputFileLocation">C:\Users\hahah\Desktop\ML\MlLanguageMk2\src\main\resources\ML_IN_OUT\full\ex45.zip
-    </entry>
+    <entry key="uiServer">true</entry>
+    <entry key="outputFileLocation">C:\Users\hahah\Desktop\ML\MlLanguageMk2\src\main\resources\ML_IN_OUT\ex.zip</entry>
 
     <!--Parser Settings>!-->
     <!-- Files has to be "*.cvs" format !-->
@@ -19,12 +18,12 @@
     <entry key="fileLocation3">C:\Users\hahah\Desktop\ML\MlLanguageMk2\src\main\resources\ML_IN_OUT\full\S.csv</entry>
     <entry key="fileLocation4">C:\Users\hahah\Desktop\ML\MlLanguageMk2\src\main\resources\ML_IN_OUT\full\T.csv</entry>
 
-    <entry key="lineSize">67500</entry>              <!-- null for max !-->
+    <entry key="lineSize">15000</entry>              <!-- null for max !-->
     <entry key="maxCharacterLimit">30</entry>
 
     <!-- Def settings !-->
-    <entry key="shuffle">null</entry>               <!-- Def : True !-->
+    <entry key="shuffle">true</entry>               <!-- Def : True !-->
     <entry key="numInputs">null</entry>             <!-- Def : possibleCharacters !-->
     <entry key="numOutputs">null</entry>            <!-- Def : fileLocation size !-->
-    <entry key="numHiddenNodes">null</entry>        <!-- Def : (2 * maxCharacterLimit) + numOutPuts !-->
+    <entry key="numHiddenNodes">500</entry>        <!-- Def : (2 * maxCharacterLimit) + numOutPuts !-->
 </properties>

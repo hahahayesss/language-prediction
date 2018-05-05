@@ -3,6 +3,7 @@ package com.r00t.language;
 import org.deeplearning4j.api.storage.StatsStorage;
 import org.deeplearning4j.datasets.datavec.RecordReaderDataSetIterator;
 import org.deeplearning4j.eval.Evaluation;
+import org.deeplearning4j.nn.api.OptimizationAlgorithm;
 import org.deeplearning4j.nn.conf.MultiLayerConfiguration;
 import org.deeplearning4j.nn.conf.NeuralNetConfiguration;
 import org.deeplearning4j.nn.conf.layers.DenseLayer;
@@ -52,7 +53,7 @@ public class MLPClassifierLinear {
         // - Configuration >>>
         MultiLayerConfiguration configuration = new NeuralNetConfiguration.Builder()
                 .seed(PredictionProperties.getSeed())
-//                .optimizationAlgo(OptimizationAlgorithm.STOCHASTIC_GRADIENT_DESCENT)
+                .optimizationAlgo(OptimizationAlgorithm.STOCHASTIC_GRADIENT_DESCENT)
                 .biasInit(1)
                 .l2(1e-4)
                 .updater(new Nesterovs(PredictionProperties.getLearningRate(), 0.9))
@@ -69,7 +70,7 @@ public class MLPClassifierLinear {
                         .weightInit(WeightInit.XAVIER)
                         .activation(Activation.RELU)
                         .build())
-                .layer(2, new OutputLayer.Builder(LossFunctions.LossFunction.MSE)  //NEGATIVELOGLIKELIHOOD
+                .layer(2, new OutputLayer.Builder(LossFunctions.LossFunction.NEGATIVELOGLIKELIHOOD)  //MSE
                         .weightInit(WeightInit.XAVIER)
                         .activation(Activation.SOFTMAX)
                         .nIn(PredictionProperties.getNumHiddenNodes())
@@ -92,7 +93,8 @@ public class MLPClassifierLinear {
             uiServer.attach(statsStorage);
             model.setListeners(new StatsListener(statsStorage));
         } else
-            model.setListeners(new ScoreIterationListener(10000));
+//            model.setListeners(new ScoreIterationListener(5000));   //10000
+            model.setListeners(new ScoreIterationListener(Math.toIntExact(PredictionProperties.getLineSize())));
         // <<< Server - -
 
         for (int x = 0; x < PredictionProperties.getNEpochs(); x++) {
